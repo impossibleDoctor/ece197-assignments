@@ -27,3 +27,12 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
+      - name: Upload asset to GitHub Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+          asset_path: ./checkpoints/model_25.pth
+          asset_name: checkpoint.pth
+          asset_content_type:application/pth
