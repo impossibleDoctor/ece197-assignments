@@ -35,4 +35,4 @@ jobs:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
           asset_path: ./checkpoints/model_25.pth
           asset_name: checkpoint.pth
-          asset_content_type:application/pth
+          asset_content_type: application/pth
