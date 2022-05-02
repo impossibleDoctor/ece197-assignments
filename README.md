@@ -1,12 +1,12 @@
 # Object Detection training and testing scripts
 *by Cyrille C. Cervantes*
 
-This repository contains the training, testing as well as the demonstration scripts for the object detection of three classes, namely,
+This repository contains the training and testing scripts for an object detection of three classes, namely,
 - **Summit Drinking Water 500ml**
 - **Coca-Cola 330ml** 
 - **Del Monte 100% Pineapple Juice 240ml**
 
-The scripts were modified version of the [Python Vision Object Detection](https://github.com/pytorch/vision/tree/main/references/detection). The codes were modified as to conform to the custom dataset acquired by the author. With that, the models that can be used for training are limited to Pytorch models. To name, they are [Faster R-CNN](https://arxiv.org/abs/1506.01497), [FCOS](https://arxiv.org/abs/1904.01355), [RetinaNet](https://arxiv.org/abs/1708.02002), [SSD](https://arxiv.org/abs/1512.02325) and [SSDlite](https://arxiv.org/abs/1801.04381). *Mask R-CNN is not supported*.
+The scripts were modified version of the python files from [Python Vision Object Detection](https://github.com/pytorch/vision/tree/main/references/detection). The codes were modified as to conform to the custom dataset acquired by the author. With that, the models that can be used for training are limited to Pytorch models. To name, they are [Faster R-CNN](https://arxiv.org/abs/1506.01497), [FCOS](https://arxiv.org/abs/1904.01355), [RetinaNet](https://arxiv.org/abs/1708.02002), [SSD](https://arxiv.org/abs/1512.02325) and [SSDlite](https://arxiv.org/abs/1801.04381). *Mask R-CNN is not supported*.
 
 
 ### Install
