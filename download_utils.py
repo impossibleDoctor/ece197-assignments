@@ -52,3 +52,5 @@ def download_pretrained_model(model):
         gdown.download(url, file, quiet=False)
     else:
         print("Pretrained.pth file already downloaded.")
+    
+    return str(file)

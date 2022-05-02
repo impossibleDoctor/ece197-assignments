@@ -82,7 +82,7 @@ def main(args):
     print("Loading dataset")
     download_dataset()
 
-    num_classes = 4 # somehow 3 classes don't work
+    num_classes = 6 # somehow 3 classes don't work
     dataset = get_drinks("drinks", "train", get_transform(True, args))
     dataset_test = get_drinks("drinks", "test", get_transform(False, args))
 

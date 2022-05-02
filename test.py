@@ -68,7 +68,7 @@ def main(args):
     )
 
     # CREATE MODEL
-    num_classes = 4
+    num_classes = 6
     model = torchvision.models.detection.__dict__[args.model]( num_classes=num_classes, pretrained=False )
     model.to(device)
     if args.distributed and args.sync_bn:

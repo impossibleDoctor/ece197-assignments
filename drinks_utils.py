@@ -1,3 +1,4 @@
+import json
 import torch
 import torchvision
 
@@ -82,7 +83,12 @@ class DRINKS(COCO):
                 { "id": 3, "name": "Del Monte 100% Pineapple Juice 240ml" }
             ]
             ds["categories"] = categories
-                
+
+        # TODO: remove later
+        # image_set = csvFile[7:].strip(".csv")
+        # with open(f"instances_{image_set}", "w") as w:
+        #     json.dump(ds, w) 
+
         return ds
 
 class DrinksDetection(torchvision.datasets.CocoDetection):
