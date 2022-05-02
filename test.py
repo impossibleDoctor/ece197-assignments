@@ -9,15 +9,6 @@ import utils
 from engine import evaluate
 import presets
 
-# dangling class
-class ArgsLike():
-    def __repr__(self):
-        args = vars(self)
-        out = ""
-        for key in args:
-            out = out + f"{key}: {args[key]} \n"
-        return out
-
 def get_transform(train, args):
     if args.weights:
         weights = torchvision.models.get_weight(args.weights)
