@@ -6,19 +6,12 @@ import presets
 from drinks_utils import get_drinks
 from group_by_aspect_ratio import GroupedBatchSampler, create_aspect_ratio_groups
 from engine import train_one_epoch, evaluate
-
+from download_utils import download_dataset
 
 import time
 import os
 import datetime
 
-
-def get_dataset(name, image_set, transform, data_path):
-    paths = {"drinks": (data_path, get_drinks, 4)}
-    p, ds_fn, num_classes = paths[name]
-
-    ds = ds_fn(p, image_set=image_set, transforms=transform)
-    return ds, num_classes
 
 def get_transform(train, args):
     if train:
@@ -36,11 +29,11 @@ def get_args_parser(add_help=True):
     parser = argparse.ArgumentParser(description="PyTorch Detection Training", add_help=add_help)
 
     # FIXED ARGS (NOT CONFIGURABLE)
-    # parser.add_argument("--model",                      default="faster_rcnn", type=str, help="model name")
+
     # parser.add_argument("--data-path",                  default="drinks",     type=str, help="dataset path" )
     # parser.add_argument("--dataset",                    default="drinks",                 type=str, help="dataset name")
-
-
+    # parser.add_argument("--model",                      default="fasterrcnn_resnet50_fpn ", type=str, help="model name")
+    
     parser.add_argument("--device",                     default="cuda",                 type=str, help="device (Use cuda or cpu Default: cuda)")
     parser.add_argument("-b", "--batch-size",           default=2,                      type=int, help="images per gpu, the total batch size is $NGPU x batch_size" )
     parser.add_argument("--epochs",                     default=26,                     type=int, metavar="N", help="number of total epochs to run")
@@ -60,9 +53,8 @@ def get_args_parser(add_help=True):
     parser.add_argument("--start_epoch",                default=0,                      type=int, help="start epoch")
     parser.add_argument("--aspect-ratio-group-factor",  default=3,                      type=int )
     parser.add_argument("--data-augmentation",          default="hflip",                type=str, help="data augmentation policy (default: hflip)" )
-    parser.add_argument("--sync-bn",                                                    dest="sync_bn", help="Use sync batch norm", action="store_true", )
-    parser.add_argument("--test-only",                                                  dest="test_only", help="Only test the model",action="store_true",)
-    
+    parser.add_argument("--sync-bn",                    action="store_true",            dest="sync_bn", help="Use sync batch norm", )
+
     # distributed training parameters
     parser.add_argument("--world-size",                 default=1,                      type=int, help="number of distributed processes")
     parser.add_argument("--dist-url",                   default="env://",               type=str, help="url used to set up distributed training")
@@ -87,7 +79,8 @@ def main(args):
     device = torch.device(args.device)
 
     # DATA LOADING -------------------------------------
-    print("Loading data")
+    print("Loading dataset")
+    download_dataset()
 
     num_classes = 4 # somehow 3 classes don't work
     dataset = get_drinks("drinks", "train", get_transform(True, args))
@@ -168,10 +161,6 @@ def main(args):
         args.start_epoch = checkpoint["epoch"] + 1
         if args.amp:
             scaler.load_state_dict(checkpoint["scaler"])
-
-    if args.test_only:
-        evaluate(model, data_loader_test, device=device)
-        return
 
     # START TRAINING ----------------------
     print("Start training")
