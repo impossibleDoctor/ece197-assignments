@@ -58,6 +58,11 @@ python test.py
 ```
 python test.py --model fasterrcnn_mobilenet_v3_large_fpn --use_pretrained
 ```
+### Pretrained Models
+Listed here are the pretrained weights that I have trained so far.
+- [fasterrcnn_mobilenet_v3_large_fpn](https://drive.google.com/file/d/1xQk-581FjmaOeFq3lk7PcVvalYId2yvE/view?usp=sharing)
+- [fasterrcnn_resnet50_fpn](https://drive.google.com/file/d/1PVSCT-UDnLyglHslZnMo353zEqI0K2VP/view?usp=sharing)
+
 ## Demo
 *scripts coming soon*
 
