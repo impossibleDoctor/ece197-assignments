@@ -61,6 +61,7 @@ python test.py --model fasterrcnn_mobilenet_v3_large_fpn --use_pretrained
 ## Demo
 *scripts coming soon*
 For now, here is a video demonstration of the real-time object detection.
+
 https://user-images.githubusercontent.com/39228574/166243786-824e219d-0694-4c24-920d-373414aea20e.mp4
 
 
