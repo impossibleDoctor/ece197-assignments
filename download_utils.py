@@ -46,7 +46,7 @@ def download_pretrained_model(model):
     try:
         id = PTH_IDS[model]
     except:
-        print("Sorry, there is no pretrained model yet for the given model.")
+        raise Exception("Sorry, there is no pretrained model yet for the given model.")
     url = f'https://drive.google.com/uc?id={id}'
     file = "checkpoints/drinks_{}.pth".format(model)
     
