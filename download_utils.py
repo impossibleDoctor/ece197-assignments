@@ -36,11 +36,16 @@ def _extract_zip(file):
     os.remove(file)
 
 
-def download_pretrained_model():
+def download_pretrained_model(model):
+
+    PTH_IDS = {
+        "drinks_fasterrcnn_resnet50_fpn": "",
+        "fasterrcnn_mobilenet_v3_large_fpn": "", 
+    }
     
-    id = "1mRtbvLYKAl1dMQl7BORIyYIitezD5WPw"
+    id = PTH_IDS[model]
     url = f'https://drive.google.com/uc?id={id}'
-    file = "checkpoints/pretrained.pth"
+    file = "checkpoints/drinks_{}.pth".format(model)
     
     if not os.path.exists(file):
         if not os.path.exists("checkpoints"): os.mkdir("checkpoints")

@@ -33,7 +33,7 @@ def get_args_parser(add_help=True):
     # parser.add_argument("--data-path",                  default="drinks",     type=str, help="dataset path" )
     # parser.add_argument("--dataset",                    default="drinks",                 type=str, help="dataset name")
     
-    parser.add_argument("--model",                      default="fasterrcnn_resnet50_fpn ", type=str, help="model name")
+    parser.add_argument("--model",                      default="fasterrcnn_resnet50_fpn", type=str, help="model name")
     parser.add_argument("--device",                     default="cuda",                 type=str, help="device (Use cuda or cpu Default: cuda)")
     parser.add_argument("-b", "--batch-size",           default=4,                      type=int, help="images per gpu, the total batch size is $NGPU x batch_size" )
     parser.add_argument("--epochs",                     default=26,                     type=int, metavar="N", help="number of total epochs to run")

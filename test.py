@@ -78,10 +78,11 @@ def main(args):
 
     # LOAD MODEL
     if args.use_pretrained:
-        download_pretrained_model()
-        model_path = "checkpoints/pretrained.pth"
+        download_pretrained_model(args.model)
+        pth_file_name = "drinks_{}.pth".format(args.model)
+        model_path = os.path.join(args.output_dir, pth_file_name)
     else:
-        model_path = "checkpoints/checkpoint.pth"
+        model_path = os.path.join(args.output_dir, "checkpoint.pth")
         if not os.path.exists(model_path):
             print("Do some training first. Exiting...")
             return
