@@ -49,7 +49,7 @@ Here are some of the arguments that can be configured are listed below. For the 
 ## Testing / Evaluation
 To test, just simply run ```test.py```. Same with the train.py, some settings can be configured through command line arguments.
 Note that when using ```--use-pretrained```, the script will download the pretrained weights of the specified ```--model```.
-When --use-pretrained is not used, the script will test the weights acquired from ```train.py``` and thus it is that ```--model``` is the same for both the train.py and test.py.
+When --use-pretrained is not used, the script will test the weights acquired from train.py and thus it is required that --model is the same for both the train.py and test.py.
 
 Here are some examples.
 ```
