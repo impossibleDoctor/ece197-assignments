@@ -12,7 +12,7 @@ from coco_utils import convert_coco_poly_to_mask, coco_remove_images_without_ann
 import transforms as T
 
 class DRINKS(COCO):
-    def __init__(self, csvFile=None, max_samples=None): # TODO: change max_samples to None
+    def __init__(self, annFile=None, max_samples=None): # TODO: change max_samples to None
 
         self.dataset = {}
         self.anns = {}
@@ -22,81 +22,73 @@ class DRINKS(COCO):
 
         self._max_samples = max_samples
 
-        if csvFile:
+        if annFile:
             print('loading annotations into memory...')
             tic = time.time()
-            dataset = self._csvToCocoDataset(csvFile)
+            dataset = self._csvToCocoDataset(annFile)
             print('Done (t={:0.2f}s)'.format(time.time()- tic))
             self.dataset = dataset
             self.createIndex()
     
-    def _csvToCocoDataset(self, csvFile):
+    def _csvToCocoDataset(self, annFile):
         ds = {"images": [], "annotations": [], "categories": []}
 
-        with open(csvFile, 'r') as f:
-            lines = csv.reader(f)
-            header = next(lines)
+        with open(annFile, 'r') as f:
+            raw = json.load(f)
 
-            img_temp = [] # list of image filenames
+            imgs = raw["_via_img_metadata"]
 
             ann_counter = 1
-            for row in lines:
-                frame, xmin, xmax, ymin, ymax, class_id = row
+            for img in imgs.values():
+                image_id = int(img["filename"].strip(".jpg"))
 
-                image_id = int(frame.strip(".jpg"))
+                image = {}
+                image["id"] = image_id
+                image["file_name"] = img["filename"]
+                image["height"] = 480             # assumed all images in the csv are 480 x 640
+                image["width"] = 640
 
-                ann = {}
-                ann["id"] = ann_counter
-                ann["image_file"] = frame       # TODO: Remove later
-                ann["image_id"] = image_id
-                ann["category_id"] = int(class_id)
-                ann["bbox"] = [
-                    int(xmin),
-                    int(ymin),
-                    int(xmax)-int(xmin),
-                    int(ymax)-int(ymin),
-                ]
-                ann["segmentation"] = [[]]         # IGNORED
-                ann["area"] = (int(xmax)-int(xmin))*(int(ymax)-int(ymin))
-                ann["iscrowd"] = 0
+                ds["images"].append(image)
 
-                ds["annotations"].append(ann)
-                ann_counter += 1
+                for region in img["regions"]:
+                    annotation = {}
+                    annotation["id"] = ann_counter
+                    annotation["image_file"] = img["filename"]
+                    annotation["image_id"] = image_id
+                    annotation["category_id"] = int(region["region_attributes"]["name"])
+                    annotation["bbox"] = [
+                        region["shape_attributes"]["x"],
+                        region["shape_attributes"]["y"],
+                        region["shape_attributes"]["width"],
+                        region["shape_attributes"]["height"],
+                    ]
+                    annotation["segmentation"] = [[]]
+                    annotation["area"] = region["shape_attributes"]["width"] * region["shape_attributes"]["height"]
+                    annotation["iscrowd"] = 0
+
+                    ds["annotations"].append(annotation)
+                    ann_counter += 1
                 
-                if frame not in img_temp:
-                    image = {}
-                    image["id"] = image_id
-                    image["file_name"] = frame
-                    image["height"] = 480             # assumed all images in the csv are 480 x 640
-                    image["width"] = 640
-
-                    ds["images"].append(image)
-                    img_temp.append(frame)
-                
-                if self._max_samples:
-                    if len(img_temp) > self._max_samples:
+                if self._max_samples is not None:
+                    if len(ds["images"]) > self._max_samples:
                         break
             
-            categories = [
-                { "id": 1, "name": "Summit Drinking Water 500ml" },
-                { "id": 2, "name": "Coca-Cola 330ml" },
-                { "id": 3, "name": "Del Monte 100% Pineapple Juice 240ml" }
-            ]
-            ds["categories"] = categories
-
-        # TODO: remove later
-        # image_set = csvFile[7:].strip(".csv")
-        # with open(f"instances_{image_set}", "w") as w:
-        #     json.dump(ds, w) 
+            cats = raw["_via_attributes"]["region"]["name"]["options"]
+            for key in cats:
+                category = {
+                    "id": int(key),
+                    "name": cats[key]
+                }
+                ds["categories"].append(category)
 
         return ds
 
 class DrinksDetection(torchvision.datasets.CocoDetection):
-    def __init__(self, img_folder, csv_File, transforms, max_samples=None):
+    def __init__(self, img_folder, ann_File, transforms, max_samples=None):
         super().__init__(img_folder, None)
         self._transforms = transforms
 
-        self.coco = DRINKS(csv_File, max_samples)
+        self.coco = DRINKS(ann_File, max_samples)
         self.ids = list(sorted(self.coco.imgs.keys()))
 
     def __getitem__(self, idx):
@@ -168,7 +160,7 @@ class ConvertCocoPolysToMask:
         return image, target
 
 def get_drinks(root, image_set, transforms, max_samples=None):
-    csv_file = os.path.join(root, "labels_{}.csv".format(image_set))
+    ann_file = os.path.join(root, "labels_{}.json".format(image_set))
 
     t = [ConvertCocoPolysToMask()]
 
@@ -176,7 +168,7 @@ def get_drinks(root, image_set, transforms, max_samples=None):
         t.append(transforms)
     transforms = T.Compose(t)
 
-    dataset = DrinksDetection(root, csv_file, transforms=transforms, max_samples=max_samples)
+    dataset = DrinksDetection(root, ann_file, transforms=transforms, max_samples=max_samples)
 
     if image_set == "train":
         dataset = coco_remove_images_without_annotations(dataset)

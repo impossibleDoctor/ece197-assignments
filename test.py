@@ -4,12 +4,12 @@ import torchvision
 import os
 
 from download_utils import download_dataset, download_pretrained_model
-from drinks_utilsv2 import get_drinks
+from drinks_utils import get_drinks
 import utils
 from engine import evaluate
 import presets
 
-def get_transform(train, args):
+def get_transform(args):
     if args.weights:
         weights = torchvision.models.get_weight(args.weights)
         trans = weights.transforms()
@@ -53,7 +53,7 @@ def main(args):
 
     # LOAD DATASET
     download_dataset()
-    dataset_test = get_drinks("drinks", "test", get_transform(False, args))
+    dataset_test = get_drinks("drinks", "test", get_transform(args))
 
     device = torch.device("cuda")
 

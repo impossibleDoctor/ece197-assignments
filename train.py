@@ -3,7 +3,7 @@ import torchvision
 
 import utils
 import presets
-from drinks_utilsv2 import get_drinks
+from drinks_utils import get_drinks
 from group_by_aspect_ratio import GroupedBatchSampler, create_aspect_ratio_groups
 from engine import train_one_epoch, evaluate
 from download_utils import download_dataset

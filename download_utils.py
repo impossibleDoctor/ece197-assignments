@@ -39,8 +39,8 @@ def _extract_zip(file):
 def download_pretrained_model(model):
 
     PTH_IDS = {
-        "drinks_fasterrcnn_resnet50_fpn": "1PVSCT-UDnLyglHslZnMo353zEqI0K2VP",
-        "fasterrcnn_mobilenet_v3_large_fpn": "1UG6qaMG6Qeq5mzw0Tvg_Q1hbp0oid9-u", 
+        "fasterrcnn_resnet50_fpn": "1PVSCT-UDnLyglHslZnMo353zEqI0K2VP",
+        "fasterrcnn_mobilenet_v3_large_fpn": "1xQk-581FjmaOeFq3lk7PcVvalYId2yvE", 
     }
     
     id = PTH_IDS[model]
@@ -51,6 +51,6 @@ def download_pretrained_model(model):
         if not os.path.exists("checkpoints"): os.mkdir("checkpoints")
         gdown.download(url, file, quiet=False)
     else:
-        print("Pretrained.pth file already downloaded.")
+        print("Pretrained pth file already downloaded.")
     
     return str(file)
