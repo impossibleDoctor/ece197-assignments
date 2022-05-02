@@ -10,7 +10,7 @@ The scripts were modified version of the python files from [Python Vision Object
 
 
 ### Install
-To start, you may install the required python packages for the scripts by running the following command
+Before you start, you may install the required python packages for the scripts by running the following command
 ```
 pip install -r requirements.txt
 ```
