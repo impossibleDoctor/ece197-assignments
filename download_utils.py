@@ -20,14 +20,13 @@ def download_dataset():
 
     _extract_targz(file)
     
-    
-def _extract_targz(file):
-    with open(file, 'rb', ) as f:
+def _extract_targz(file_path):
+    with open(file_path, 'rb', ) as f:
         print("Extracting drinks.tar.gz ...")
         file = tarfile.open(fileobj=f, mode="r|gz")
         file.extractall(path="")
         print("Extraction done.")
-    os.remove(file)
+    os.remove(file_path)
 
 def _extract_zip(file):
     with zipfile.ZipFile(file, 'r') as f:
