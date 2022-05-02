@@ -1,4 +1,4 @@
-# Object Detection training, testing and demo scripts
+# Object Detection training and testing scripts
 *by Cyrille C. Cervantes*
 
 This repository contains the training, testing as well as the demonstration scripts for the object detection of three classes, namely,
@@ -58,3 +58,5 @@ python test.py
 ```
 python test.py --model fasterrcnn_mobilenet_v3_large_fpn --use_pretrained
 ```
+### Demo
+*coming soon*
