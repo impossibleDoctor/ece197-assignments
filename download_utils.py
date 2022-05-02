@@ -43,7 +43,10 @@ def download_pretrained_model(model):
         "fasterrcnn_mobilenet_v3_large_fpn": "1xQk-581FjmaOeFq3lk7PcVvalYId2yvE", 
     }
     
-    id = PTH_IDS[model]
+    try:
+        id = PTH_IDS[model]
+    except:
+        print("Sorry, there is no pretrained model yet for the given model.")
     url = f'https://drive.google.com/uc?id={id}'
     file = "checkpoints/drinks_{}.pth".format(model)
     
