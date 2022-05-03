@@ -84,8 +84,14 @@ def main(args):
     else:
         model_path = os.path.join(args.output_dir, "checkpoint.pth")
         if not os.path.exists(model_path):
-            print("Do some training first. Exiting...")
-            return
+            print("Trained pth file not found. Do some training first.")
+            print("Will use the default pretrained model.")
+
+            model_name = "fasterrcnn_mobilenet_v3_large_fpn"
+            download_pretrained_model(model_name)
+            pth_file_name = "drinks_{}.pth".format(model_name)
+            model_path = os.path.join(args.output_dir, pth_file_name)
+
 
     checkpoint = torch.load(model_path)
     model.load_state_dict(checkpoint['model'])
