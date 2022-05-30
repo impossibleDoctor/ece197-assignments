@@ -9,8 +9,11 @@ Before you start, you may install the required python packages for the scripts b
 pip install -r requirements.txt
 ```
 ## Training
-To train, simply run the ```train.py``` script. It is recommended not to change parameters for Melspectrogram as doing so may give inconsisten input dimension to the transformer.
-
+To train, simply run the ```train.py``` script.
+:warning: **It is recommended not to change parameters for MelSpectrogram as doing so may give inconsistent input dimensions to the transformer.**
+```
+python train.py
+```
 
 ## Demo
 To run a demo, you may use the ```kws-infer.py```. It will run an inference on a single audio file or an input from the device's microphone.
