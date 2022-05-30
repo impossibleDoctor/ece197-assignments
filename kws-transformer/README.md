@@ -10,7 +10,8 @@ pip install -r requirements.txt
 ```
 ## Training
 To train, simply run the ```train.py``` script.
-:warning: **It is recommended not to change parameters for MelSpectrogram as doing so may give inconsistent input dimensions to the transformer.**
+
+:warning: **It is recommended not to change the parameters for MelSpectrogram (such as ```n_mels```, ```hop_length```, ```win_length```, and ```patch_num``` as doing so may give inconsistent input dimensions to the transformer.**
 ```
 python train.py
 ```
