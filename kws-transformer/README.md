@@ -10,14 +10,15 @@ pip install -r requirements.txt
 ```
 ## Training
 To train, simply run the ```train.py``` script.
-
-:warning: **It is recommended not to change the parameters for MelSpectrogram (such as ```n_mels```, ```hop_length```, ```win_length```, and ```patch_num``` as doing so may give inconsistent input dimensions to the transformer.**
 ```
 python train.py
 ```
 
+:warning: **It is recommended not to change the parameters for MelSpectrogram (such as ```n_mels```, ```hop_length```, ```win_length```, and ```patch_num``` as doing so may give inconsistent input dimensions to the transformer.**
+
 ## Demo
 To run a demo, you may use the ```kws-infer.py```. It will run an inference on a single audio file or an input from the device's microphone.
+
 Simple test:
 ```
 python3 kws-infer.py --wav-file <path-to-wav-file>  
