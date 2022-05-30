@@ -1,7 +1,4 @@
 dataset/
 __pycache__/
-transformer.py
-trial.py
 lightning_logs/
 wandb/
-from_colab.py
