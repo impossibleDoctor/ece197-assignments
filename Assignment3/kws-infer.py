@@ -80,7 +80,7 @@ if __name__ == "__main__":
         # if not os.path.isfile(checkpoint):
         #     torch.hub.download_url_to_file(args.checkpoint, checkpoint)
 
-        checkpoint = os.path.join("dataset", "checkpoints", "transformer-kws-best-acc-paper.pt")
+        checkpoint = os.path.join("default", "transformer-kws-best-acc-paper.pt")
 
     print("Loading model checkpoint: ", checkpoint)
     scripted_module = torch.jit.load(checkpoint)

@@ -103,7 +103,7 @@ if __name__ == "__main__":
 
     checkpoint_file = os.path.join(args.path, "checkpoints", cpkt_name+".ckpt")
     if not os.path.exists(checkpoint_file):
-        checkpoint_file = os.path.join(args.path, "checkpoints", "transformer-kws-best-acc-paper.ckpt")
+        checkpoint_file = os.path.join("default", "transformer-kws-best-acc-paper.ckpt")
 
     model = model.load_from_checkpoint(checkpoint_file)
 
