@@ -30,6 +30,8 @@ python3 kws-infer.py --gui
 
 Here is a video demonstration of the real-time keyword spotting.
 
-https://user-images.githubusercontent.com/39228574/170971546-25bdbb34-dfba-456e-93ea-acf439f0061f.mp4
+https://user-images.githubusercontent.com/39228574/171066277-fc4caf91-0fb3-4841-aa9e-728bbe42523c.mp4
+
+
 
 
